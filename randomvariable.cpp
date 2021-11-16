@@ -80,3 +80,11 @@ double RandomVariable::simulate() {
     for(int i = 1; i < _size; i++) pre_sums[i] = pre_sums[i-1] + _probabilities[i];
     return _values[lower_bound(pre_sums.begin(), pre_sums.end(), value) - pre_sums.begin()];
 }
+
+double RandomVariable::expectedValue() {
+    double result = 0;
+    for(int i = 0; i < _size; i++) {
+        result += _values[i] * _probabilities[i];
+    }
+    return result;
+}

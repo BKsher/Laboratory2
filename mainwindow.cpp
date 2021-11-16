@@ -29,6 +29,7 @@ void MainWindow::refreshGridLayout(QGridLayout *layout) {
     QWidget *widget = new QWidget();
     layout->addWidget(widget);
     layout->removeWidget(widget);
+    delete widget;
 }
 
 void MainWindow::addColumn(int i) {
@@ -84,13 +85,18 @@ void MainWindow::loadRandomVariable()
 void MainWindow::bigSimulation() {
     model->clear();
     int count = ui->countField->text().toInt();
+    double avarage = 0;
     for(int i = 0; i < count; i++) {
+        double value = getRandomVariable()->simulate();
         QString line = QString("%1) %2").arg(QString::number(i+1),
-                                             QString::number(getRandomVariable()->simulate()));
+                                             QString::number(value));
+        avarage += value;
         model->insertRow(i);
         auto item = new QStandardItem(line);
         model->setItem(i, item );
     }
+    avarage /= count;
+    ui->fieldForAvarage->setText(QString::number(avarage));
 }
 
 void MainWindow::valueUpdated(int i) {
@@ -165,6 +171,7 @@ void MainWindow::on_btnSimulate_clicked()
 void MainWindow::on_pushButton_clicked()
 {
     if(random_variables.size() < 1) return;
+    ui->fieldForExpectedValue->setText(QString::number(getRandomVariable()->expectedValue()));
     bigSimulation();
 }
 

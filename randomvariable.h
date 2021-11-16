@@ -28,6 +28,7 @@ public:
     void normalize();
     double simulate();
 
+    double expectedValue();
 private:
     vector <double> _values;
     vector <double> _probabilities;
