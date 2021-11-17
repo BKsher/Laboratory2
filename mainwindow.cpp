@@ -149,7 +149,8 @@ void MainWindow::on_btnRemoveColumn_clicked()
 {
     if(random_variables.size() < 1) return;
     getRandomVariable()->setSize(getRandomVariable()->size() - 1);
-    removeColumn(getRandomVariable()->size());
+    getRandomVariable()->normalize();
+    loadRandomVariable();
 }
 
 

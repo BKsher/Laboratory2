@@ -69,6 +69,7 @@ QString RandomVariable::name()
 void RandomVariable::normalize() {
     double sum = 0;
     for(double p : _probabilities) sum += p;
+    if(sum <= 0) return;
     for(double &p : _probabilities) p /= sum;
 }
 
